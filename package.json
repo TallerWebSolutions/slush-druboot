@@ -1,0 +1,53 @@
+{
+  "name": "slush-druboot-generator",
+  "description": "Druboot generator",
+  "version": "0.1.0",
+  "homepage": "https://github.com/lucasconstantino/slush-druboot-generator",
+  "author": {
+    "name": "Lucas Constantino Silva",
+    "email": "lucasconstantinosilva@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lucasconstantino/slush-druboot-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lucasconstantino/slush-druboot-generator/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/lucasconstantino/slush-druboot-generator/blob/master/LICENSE"
+    }
+  ],
+  "main": "slushfile.js",
+  "engines": {
+    "node": ">= 0.10.26",
+    "npm": ">=1.4.3"
+  },
+  "scripts": {
+    "test": "echo \"No tests\""
+  },
+  "dependencies": {
+    "chalk": "^1.1.1",
+    "cowsay": "^1.1.1",
+    "gulp": "^3.6.2",
+    "gulp-conflict": "^0.1.2",
+    "gulp-git": "^1.4.0",
+    "gulp-install": "^0.1.8",
+    "gulp-rename": "^1.2.0",
+    "gulp-replace": "^0.5.4",
+    "gulp-template": "^0.1.2",
+    "iniparser": "^1.0.5",
+    "inquirer": "^0.8.0",
+    "nodegit": "^0.4.1",
+    "shelljs": "^0.5.3",
+    "slug": "^0.9.1",
+    "slush": ">=1.0.0",
+    "underscore.string": "^2.3.3",
+    "validator": "^4.0.5"
+  },
+  "keywords": [
+    "slushgenerator"
+  ]
+}
