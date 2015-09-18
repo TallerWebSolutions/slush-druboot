@@ -152,8 +152,7 @@ gulp.task('git:init', ['build'], function (done) {
   exec('git init');
 
   if (config['git:origin']) {
-    console.log(config['git:origin']);
-    exec('git remote add origin ' + config['git:config']);
+    exec('git remote add origin ' + config['git:origin']);
   }
 
   done();
