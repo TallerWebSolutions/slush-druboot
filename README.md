@@ -13,17 +13,13 @@ $ npm install -g slush-druboot
 
 ### Usage
 
-Create a new folder for your project:
+Run the generator from any folder:
 
 ```bash
-$ mkdir my-slush-druboot
+$ slush druboot
 ```
 
-Run the generator from within the new folder:
-
-```bash
-$ cd my-slush-druboot && slush druboot
-```
+> Druboot's generator will ask for the path where to create the new project's files, so you don't need to create the directory before starting.
 
 ## Getting To Know Slush
 
