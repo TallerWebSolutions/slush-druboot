@@ -15,6 +15,7 @@ var validator = require('validator');
 var chalk = require('chalk');
 var cowsay = require('cowsay');
 var slug = require('slug');
+var extend = require('extend');
 
 var gulp = require('gulp');
 var install = require('gulp-install');
@@ -27,7 +28,9 @@ var replaceMap = {
   'humanName': '***DRUPAL_HUMAN_NAME***',
   'siteName': '***DRUPAL_SITE_NAME***',
   'machineName': '***DRUPAL_MACHINE_NAME***',
-  'devIP': '***CHANGE.THIS.IP.ADDR***'
+  'devIP': '***CHANGE.THIS.IP.ADDR***',
+  'kwSource': '***DRUPAL_KW_SKELETON_SOURCE***',
+  'kwBranch': '***DRUPAL_KW_SKELETON_BRANCH***'
 };
 
 var drubootRepoURL = 'https://github.com/TallerWebSolutions/druboot.git';
@@ -111,19 +114,38 @@ gulp.task('prompt', function (done) {
   prompts.push({
     type: 'input',
     name: 'git:origin',
-    message: 'Tell us the repository url, should you have it already:',
+    message: 'Tell us the git repository url, should you have it already:',
     when: function (answers) {
       return answers['git:init'];
-    },
-    validate: function (input) {
-      return !input || validator.isURL(input);
     }
+  });
+
+  // Kraftwagen source:
+  // @todo: enable this configuration.
+  // prompts.push({
+  //   type: 'input',
+  //   name: 'kwSource',
+  //   message: 'Which Kraftwagen skeleton source should we use?',
+  //   default: 'https://github.com/TallerWebSolutions/kraftwagen-default-skeleton.git'
+  // });
+
+  // Kraftwagen branch:
+  prompts.push({
+    type: 'list',
+    name: 'kwBranch',
+    message: 'Which Kraftwagen skeleton should we use?',
+    choices: ['master', { name: 'panopoly', value: 'panopoly-update-2.21' }],
+    default: 'master'
   });
 
   // @TODO: automitize selection of roles to install.
 
   inquirer.prompt(prompts, function (answers) {
-    config = answers;
+    // Assign config with some additional non-configurable settings.
+    config = extend(true, {
+      kwSource: 'https://github.com/TallerWebSolutions/kraftwagen-default-skeleton.git'
+    }, answers);
+
     done();
   });
 });
