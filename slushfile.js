@@ -93,12 +93,6 @@ function build(config, done) {
   rm('-rf', __dirname + '/druboot-clone');
 
   var cloning = git.Clone.clone('https://github.com/TallerWebSolutions/druboot.git', __dirname + '/druboot-clone');
-  var replacements = {};
-
-  // Map replacement configs.
-  Object.keys(config).map(function (key) {
-    replacements[replaceMap[key]] = config[key];
-  });
 
   // Parse and copy.
   cloning.then(copy);
@@ -111,15 +105,17 @@ function build(config, done) {
    */
   function copy() {
     rm('-rf', __dirname + '/druboot-clone/.git');
-    var stream = gulp.src(__dirname + '/druboot-clone/**/*');
 
-    Object.keys(replacements).forEach(function (key) {
-      stream = stream.pipe(replace(key, replacements[key]));
+    var stream = gulp.src(__dirname + '/druboot-clone/**/*');
+    var dest = './' + config.machineName;
+
+    Object.keys(config).forEach(function (key) {
+      stream = stream.pipe(replace(replaceMap[key], config[key]));
     });
 
     stream
-      .pipe(conflict('./'))
-      .pipe(gulp.dest('./'))
+      .pipe(conflict(dest))
+      .pipe(gulp.dest(dest))
       .pipe(install())
       .on('end', function () {
         done();
