@@ -64,7 +64,11 @@ gulp.task('prompt', function (done) {
     name: 'machineName',
     message: 'Provide a machine name for the project:',
     default: function (answers) {
-      var result = slug(answers.humanName, { lower: true });
+      var result = slug(answers.humanName, {
+        lower: true,
+        replacement: '',
+        remove: /[-_]/
+      });
 
       result = validator.ltrim(result, '0123456789 -');
       result = validator.rtrim(result, ' -');
@@ -72,7 +76,7 @@ gulp.task('prompt', function (done) {
       return result;
     },
     validate: function (input) {
-      return input && /^[a-z][a-z-0-9]+[a-z]([a-z-0-9]?[a-z0-9])?$/.test(input) || 'Provide a valid machine name, please.';
+      return input && /^[a-z][a-z0-9]+$/.test(input) || 'Provide a valid (^[a-z][a-z0-9]+$) machine name, please.';
     }
   });
 
