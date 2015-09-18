@@ -5,10 +5,10 @@
 
 ## Getting Started
 
-Install `slush-druboot` globally:
+Install `slush` and `slush-druboot` globally:
 
 ```bash
-$ npm install -g slush-druboot
+$ npm install -g slush slush-druboot
 ```
 
 ### Usage
