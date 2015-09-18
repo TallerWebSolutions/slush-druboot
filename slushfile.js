@@ -22,6 +22,7 @@ var install = require('gulp-install');
 var conflict = require('gulp-conflict');
 var replace = require('gulp-replace');
 var rename = require('gulp-rename');
+var sequence = require('run-sequence');
 
 var replaceMap = {
   'humanName': '***DRUPAL_HUMAN_NAME***',
@@ -30,7 +31,11 @@ var replaceMap = {
   'devIP': '***CHANGE.THIS.IP.ADDR***'
 };
 
-gulp.task('default', function (done) {
+var drubootRepoURL = 'https://github.com/TallerWebSolutions/druboot.git';
+
+var config = {};
+
+gulp.task('prompt', function (done) {
   var prompts = [];
 
   say('Welcome to the awesome (cof cof) ' + chalk.red('Druboot') + ' generator!');
@@ -92,49 +97,85 @@ gulp.task('default', function (done) {
     }
   });
 
+  // Setup git:
+  prompts.push({
+    type: 'confirm',
+    name: 'git:init',
+    message: 'Should we start git a repository?'
+  });
+
+  // Git remote:
+  prompts.push({
+    type: 'input',
+    name: 'git:origin',
+    message: 'Tell us the repository url, should you have it already:',
+    when: function (answers) {
+      return answers['git:init'];
+    },
+    validate: function (input) {
+      return !input || validator.isURL(input);
+    }
+  });
+
   // @TODO: automitize selection of roles to install.
 
   inquirer.prompt(prompts, function (answers) {
-    build(answers, done);
+    config = answers;
+    done();
   });
 });
 
-/**
- * Build Druboot project.
- */
-function build(config, done) {
+gulp.task('druboot:clone', function (done) {
   rm('-rf', __dirname + '/druboot-clone');
 
-  var cloning = git.Clone.clone('https://github.com/TallerWebSolutions/druboot.git', __dirname + '/druboot-clone');
+  git.Clone.clone(drubootRepoURL, __dirname + '/druboot-clone')
+    .then(function () {
+      rm('-rf', __dirname + '/druboot-clone/.git');
+      done();
+    })
+    .catch(done);
+});
 
-  // Parse and copy.
-  cloning.then(copy);
+gulp.task('build', ['druboot:clone'], function (done) {
+  var stream = gulp.src(__dirname + '/druboot-clone/**/*');
 
-  // Failure handling.
-  cloning.catch(done);
+  Object.keys(replaceMap).forEach(function (key) {
+    stream = stream.pipe(replace(replaceMap[key], config[key]));
+  });
 
-  /**
-   * Copy druboot files to final directory.
-   */
-  function copy() {
-    rm('-rf', __dirname + '/druboot-clone/.git');
+  return stream
+    .pipe(conflict(config.dest))
+    .pipe(gulp.dest(config.dest))
+    .pipe(install())
+    .on('end', function () { done(); })
+    .resume();
+});
 
-    var stream = gulp.src(__dirname + '/druboot-clone/**/*');
+gulp.task('git:init', ['build'], function (done) {
+  var repositoryInitOptions = new git.RepositoryInitOptions();
 
-    Object.keys(config).forEach(function (key) {
-      stream = stream.pipe(replace(replaceMap[key], config[key]));
-    });
+  // Setup remote url.
+  if (config['git:origin']) repositoryInitOptions.originUrl = config['git:origin'];
 
-    stream
-      .pipe(conflict(config.dest))
-      .pipe(gulp.dest(config.dest))
-      .pipe(install())
-      .on('end', function () {
-        done();
-      })
-      .resume();
-  }
-}
+  git.Repository.initExt(config.dest, repositoryInitOptions)
+    .then(done.bind(null, null))
+    .catch(done);
+});
+
+gulp.task('default', ['prompt'], function (done) {
+  var tasks = ['build'];
+
+  // Add Git initialization task.
+  if (config['git:init']) tasks.push('git:init');
+
+  sequence(tasks, done);
+});
+
+
+/*
+ * HELPERS
+ * -------
+ */
 
 /**
  * Log with cowsay.
