@@ -58,14 +58,27 @@ gulp.task('default', function (done) {
   prompts.push({
     type: 'input',
     name: 'machineName',
-    message: 'We also need a machine name:',
+    message: 'Provide a machine name for the project:',
     default: function (answers) {
-      return slug(answers.humanName, {
-        lower: true
-      });
+      var result = slug(answers.humanName, { lower: true });
+
+      result = validator.ltrim(result, '0123456789 -');
+      result = validator.rtrim(result, ' -');
+
+      return result;
     },
     validate: function (input) {
-      return input && /^[a-z-]+$/.test(input) || 'Provide a valid (^[a-z-]+$) machine name, please.';
+      return input && /^[a-z][a-z-0-9]+[a-z]([a-z-0-9]?[a-z0-9])?$/.test(input) || 'Provide a valid machine name, please.';
+    }
+  });
+
+  // Destiny:
+  prompts.push({
+    type: 'input',
+    name: 'dest',
+    message: 'Where should we create the files?',
+    default: function (answers) {
+      return './' + answers.machineName;
     }
   });
 
@@ -107,15 +120,14 @@ function build(config, done) {
     rm('-rf', __dirname + '/druboot-clone/.git');
 
     var stream = gulp.src(__dirname + '/druboot-clone/**/*');
-    var dest = './' + config.machineName;
 
     Object.keys(config).forEach(function (key) {
       stream = stream.pipe(replace(replaceMap[key], config[key]));
     });
 
     stream
-      .pipe(conflict(dest))
-      .pipe(gulp.dest(dest))
+      .pipe(conflict(config.dest))
+      .pipe(gulp.dest(config.dest))
       .pipe(install())
       .on('end', function () {
         done();
