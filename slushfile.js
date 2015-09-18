@@ -17,7 +17,6 @@ var cowsay = require('cowsay');
 var slug = require('slug');
 
 var gulp = require('gulp');
-var git = require('nodegit');
 var install = require('gulp-install');
 var conflict = require('gulp-conflict');
 var replace = require('gulp-replace');
@@ -127,13 +126,10 @@ gulp.task('prompt', function (done) {
 
 gulp.task('druboot:clone', function (done) {
   rm('-rf', __dirname + '/druboot-clone');
-
-  git.Clone.clone(drubootRepoURL, __dirname + '/druboot-clone')
-    .then(function () {
-      rm('-rf', __dirname + '/druboot-clone/.git');
-      done();
-    })
-    .catch(done);
+  exec('git clone ' + drubootRepoURL + ' ' + __dirname + '/druboot-clone', function (code, output) {
+    rm('-rf', __dirname + '/druboot-clone/.git');
+    done(code ? code : null, code ? output : null);
+  });
 });
 
 gulp.task('build', ['druboot:clone'], function (done) {
@@ -152,14 +148,14 @@ gulp.task('build', ['druboot:clone'], function (done) {
 });
 
 gulp.task('git:init', ['build'], function (done) {
-  var repositoryInitOptions = new git.RepositoryInitOptions();
+  cd(config.dest);
+  exec('git init');
 
-  // Setup remote url.
-  if (config['git:origin']) repositoryInitOptions.originUrl = config['git:origin'];
+  if (config['git:origin']) {
+    exec('git remote set-url origin ' + config['git:config']);
+  }
 
-  git.Repository.initExt(config.dest, repositoryInitOptions)
-    .then(done.bind(null, null))
-    .catch(done);
+  done();
 });
 
 gulp.task('default', ['prompt'], function (done) {
