@@ -1,6 +1,6 @@
 /*
- * slush-druboot-generator
- * https://github.com/lucasconstantino/slush-druboot-generator
+ * slush-druboot
+ * https://github.com/TallerWebSolutions/slush-druboot
  *
  * Copyright (c) 2015, Lucas Constantino Silva
  * Licensed under the MIT license.

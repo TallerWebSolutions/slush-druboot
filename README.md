@@ -1,14 +1,14 @@
-# Slush Druboot-generator [![Build Status](https://secure.travis-ci.org/lucasconstantino/slush-druboot-generator.png?branch=master)](https://travis-ci.org/lucasconstantino/slush-druboot-generator) [![NPM version](https://badge-me.herokuapp.com/api/npm/slush-druboot-generator.png)](http://badges.enytc.com/for/npm/slush-druboot-generator)
+# Slush Druboot
 
 > Druboot generator
 
 
 ## Getting Started
 
-Install `slush-druboot-generator` globally:
+Install `slush-druboot` globally:
 
 ```bash
-$ npm install -g slush-druboot-generator
+$ npm install -g slush-druboot
 ```
 
 ### Usage
@@ -16,13 +16,13 @@ $ npm install -g slush-druboot-generator
 Create a new folder for your project:
 
 ```bash
-$ mkdir my-slush-druboot-generator
+$ mkdir my-slush-druboot
 ```
 
 Run the generator from within the new folder:
 
 ```bash
-$ cd my-slush-druboot-generator && slush druboot-generator
+$ cd my-slush-druboot && slush druboot
 ```
 
 ## Getting To Know Slush
@@ -35,12 +35,12 @@ To find out more about Slush, check out the [documentation](https://github.com/s
 
 ## Contributing
 
-See the [CONTRIBUTING Guidelines](https://github.com/lucasconstantino/slush-druboot-generator/blob/master/CONTRIBUTING.md)
+See the [CONTRIBUTING Guidelines](https://github.com/TallerWebSolutions/slush-druboot/blob/master/CONTRIBUTING.md)
 
 ## Support
-If you have any problem or suggestion please open an issue [here](https://github.com/lucasconstantino/slush-druboot-generator/issues).
+If you have any problem or suggestion please open an issue [here](https://github.com/TallerWebSolutions/slush-druboot/issues).
 
-## License 
+## License
 
 The MIT License
 
@@ -66,4 +66,3 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
 WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 OTHER DEALINGS IN THE SOFTWARE.
-

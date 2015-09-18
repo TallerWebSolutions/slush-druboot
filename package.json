@@ -1,23 +1,23 @@
 {
-  "name": "slush-druboot-generator",
+  "name": "slush-druboot",
   "description": "Druboot generator",
   "version": "0.1.0",
-  "homepage": "https://github.com/lucasconstantino/slush-druboot-generator",
+  "homepage": "https://github.com/TallerWebSolutions/slush-druboot",
   "author": {
     "name": "Lucas Constantino Silva",
     "email": "lucasconstantinosilva@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/lucasconstantino/slush-druboot-generator.git"
+    "url": "git://github.com/lucasconstantino/slush-druboot.git"
   },
   "bugs": {
-    "url": "https://github.com/lucasconstantino/slush-druboot-generator/issues"
+    "url": "https://github.com/TallerWebSolutions/slush-druboot/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/lucasconstantino/slush-druboot-generator/blob/master/LICENSE"
+      "url": "https://github.com/TallerWebSolutions/slush-druboot/blob/master/LICENSE"
     }
   ],
   "main": "slushfile.js",

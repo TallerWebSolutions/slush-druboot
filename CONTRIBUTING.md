@@ -1,4 +1,4 @@
-# Contributing to druboot-generator
+# Contributing to druboot
 
 Please take a moment to review this document in order to make the contribution
 process easy and effective for everyone involved.
@@ -93,11 +93,11 @@ project:
 
    ```bash
    # Clone your fork of the repo into the current directory
-   git clone https://github.com/<your-username>/slush-druboot-generator
+   git clone https://github.com/<your-username>/slush-druboot
    # Navigate to the newly cloned directory
-   cd slush-druboot-generator
+   cd slush-druboot
    # Assign the original repo to a remote called "upstream"
-   git remote add upstream https://github.com/lucasconstantino/slush-druboot-generator
+   git remote add upstream https://github.com/TallerWebSolutions/slush-druboot
    ```
 
 2. If you cloned a while ago, get the latest changes from upstream:
