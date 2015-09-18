@@ -65,7 +65,7 @@ gulp.task('prompt', function (done) {
   prompts.push({
     type: 'input',
     name: 'machineName',
-    message: 'Provide a machine name for the project:',
+    message: 'Give our project a machine name:',
     default: function (answers) {
       var result = slug(answers.humanName, {
         lower: true,
@@ -93,15 +93,15 @@ gulp.task('prompt', function (done) {
     }
   });
 
-  // Development IP:
-  prompts.push({
-    type: 'input',
-    name: 'devIP',
-    message: 'Provide the IP address for the development environment, if you do have one:',
-    validate: function (input) {
-      return !input || validator.isIP(input) || 'Please provide a valid IP address or none at all, please.';
-    }
-  });
+  // @TODO: Development IP:
+  // prompts.push({
+  //   type: 'input',
+  //   name: 'devIP',
+  //   message: 'Provide the IP address for the development environment, if you do have one:',
+  //   validate: function (input) {
+  //     return !input || validator.isIP(input) || 'Please provide a valid IP address or none at all, please.';
+  //   }
+  // });
 
   // Setup git:
   prompts.push({
@@ -120,8 +120,7 @@ gulp.task('prompt', function (done) {
     }
   });
 
-  // Kraftwagen source:
-  // @todo: enable this configuration.
+  // @TODO: Kraftwagen source:
   // prompts.push({
   //   type: 'input',
   //   name: 'kwSource',
