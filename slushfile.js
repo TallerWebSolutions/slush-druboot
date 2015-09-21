@@ -135,7 +135,11 @@ gulp.task('prompt', function (done) {
     type: 'list',
     name: 'kwBranch',
     message: 'Which Kraftwagen skeleton should we use?',
-    choices: ['master', { name: 'panopoly', value: 'panopoly-update-2.21' }],
+    choices: [
+      'master',
+      { name: 'panopoly', value: 'panopoly-update-2.21' },
+      'basic'
+    ],
     default: 'master'
   });
 
