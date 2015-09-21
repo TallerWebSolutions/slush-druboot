@@ -164,7 +164,10 @@ gulp.task('druboot:clone', function (done) {
 });
 
 gulp.task('build', ['druboot:clone'], function (done) {
-  var stream = gulp.src(__dirname + '/druboot-clone/**/*');
+  var stream = gulp.src([
+    __dirname + '/druboot-clone/**/*',
+    __dirname + '/druboot-clone/.*'
+  ]);
 
   Object.keys(replaceMap).forEach(function (key) {
     stream = stream.pipe(replace(replaceMap[key], config[key]));
