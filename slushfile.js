@@ -93,7 +93,8 @@ gulp.task('prompt', function (done) {
     }
   });
 
-  // @TODO: Development IP:
+  // Development IP:
+
   // prompts.push({
   //   type: 'input',
   //   name: 'devIP',
@@ -120,7 +121,8 @@ gulp.task('prompt', function (done) {
     }
   });
 
-  // @TODO: Kraftwagen source:
+  // Kraftwagen source:
+  // @todo: enable this configuration.
   // prompts.push({
   //   type: 'input',
   //   name: 'kwSource',
